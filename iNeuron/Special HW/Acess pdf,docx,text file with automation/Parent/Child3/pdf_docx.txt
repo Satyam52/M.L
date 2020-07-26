@@ -1,0 +1,313 @@
+From Saurabh Sinha to Everyone:  03:13 PM
+def read_pdf(pdf):
+    for i in pdf:
+        pdf_file = open(i,'rb')
+        read_pdf = PyPDF2.PdfFileReader(pdf_file)
+        pages = read_pdf.getNumPages()
+        page = read_pdf.getPage(0)
+        content = page.extractText()
+        pdf_content.append(content)
+    print('Want to save the extracted contents in file or display it on the console : \nEnter "Y" for file & "N" for console')
+    user_input = input()
+    if user_input.lower() == 'y':
+        with open('Child_pdf.txt', 'w+', encoding='utf-8') as f:
+            for item in pdf_content:
+                f.write("%s\n\n\n" % item)
+        child_folders = ""
+        for i in range(len(remove_duplicates)):
+            child_folders += remove_duplicates[i]
+        os.rename('Child_pdf.txt',child_folders+'.txt')
+        print('pdf file contents saved successfully in "{}" file'.format(child_folders+'.txt'))
+    else:
+        for i in range(len(pdf_content)):
+            print('Contents of "{}" pdf file :\n'.format(pdf[i]))
+            print(pdf_content[i]
+From Amritesh to Everyone:  03:13 PM
+
+for root, dirs, files in os.walk("D:/Python_prog/Parent"):
+    for d in dirs:
+            print(os.path.join(root, d))              
+    for f in files:
+         if f.endswith('.pdf'):
+            pdfFiles.append(f) 
+            pdf_count += 1
+         if f.endswith('.docx'):
+             wordFiles.append(f) 
+             word_count += 1
+         if f.endswith('.txt'): 
+             textFiles.append(f) 
+             text_count += 1     
+         if os.path.isfile(os.path.join(root, f)):
+            count += 1
+print('Total files in Parent:%s' %count)
+print('Total pdf files in Parent:%s' %pdf_count)
+print('Name of PDF files:%s' %pdfFiles)
+print('Total word files in Parent:%s' %word_count)
+print('Name of word files:%s' %wordFiles)
+print('Total word files in Parent:%s' %text_count)
+print('Name of text files:%s' %textFiles)
+
+#pdf - read data
+import PyPDF2
+pdf_data = open('D:/Python_prog/Parent/Child1/pdf-sample.pdf', 'rb') 
+pdfReader = PyPDF2.PdfFileReader(pdf_data)
+pageObj = pdfReader.getPage(0) 
+print(pageObj.e
+From Me to Everyone:  03:13 PM
+import os
+import PyPDF2
+import docx
+
+
+res = os.listdir('Parent/')
+for i in res:
+    for j in os.listdir('Parent/'+i):
+        _, file_extension = os.path.splitext('Parent/'+i+"/"+j)
+
+        if(file_extension == '.pdf'):
+            print("\n----PDF File-->", 'Parent/'+i+"/"+j, "------")
+
+            file_obj = open('Parent/'+i+"/"+j, 'rb')
+            pdfReader = PyPDF2.PdfFileReader(file_obj)
+            pageObj = pdfReader.getPage(0)
+            print(pageObj.extractText())
+            file_obj.close()
+
+            print("-----------------\n")
+        elif (file_extension == '.txt'):
+
+            print("\n*****Text File--->", 'Parent/'+i+"/"+j, "****")
+
+            file_obj = open('Parent/'+i+"/"+j, 'r')
+            print(file_obj.read())
+            file_obj.close()
+
+            print("*****************\n")
+        elif file_extension == '.docx':
+            print("####### Word File--->", 'Parent/'+i+"/"+j, "####")
+
+            doc = docx.Document('Parent/'+i+"/"+j)
+            content = doc.paragraphs
+  
+From Chatterjee, Shatarupa to Everyone:  03:13 PM
+def read_dir(parent_dir):
+    from pathlib import Path
+    import os
+    parent_dir_path = Path(parent_dir)
+    word_dict = {}
+    pdf_dict = {}
+    text_dict = {}
+    if parent_dir_path.exists():
+        num_child_dir = len(os.listdir(parent_dir_path))
+        if num_child_dir > 0:
+            for i in range(num_child_dir):
+                child_folder = os.path.join(parent_dir, os.listdir(parent_dir_path)[i])
+                num_files_child_dir = len(os.listdir(child_folder))
+                if num_files_child_dir > 0:
+                    files_list = os.listdir(child_folder)
+                    for i in range(len(files_list)):
+                        file_path = os.path.join(child_folder,files_list[i])
+                        filename = os.path.basename(file_path)
+                        file_extn = os.path.splitext(file_path)[1]
+                        if (file_extn == ".docx"):
+                            word_file_index = parent_dir.split("\\")[len(parent_dir.split("\\"))-1] + "_" + child_folder.split("
+From pawan kumar to Everyone:  03:13 PM
+screen is showing wrong side 
+From Amritesh to Everyone:  03:14 PM
+#to read all sub directory
+#to read total number of files
+#to read number of pdf, word and text files and read there names
+import os
+pdfFiles = []
+wordFiles = []
+textFiles = []
+count = 0
+pdf_count = 0
+word_count = 0
+text_count = 0
+for root, dirs, files in os.walk("D:/Python_prog/Parent"):
+    for d in dirs:
+            print(os.path.join(root, d))              
+    for f in files:
+         if f.endswith('.pdf'):
+            pdfFiles.append(f) 
+            pdf_count += 1
+         if f.endswith('.docx'):
+             wordFiles.append(f) 
+             word_count += 1
+         if f.endswith('.txt'): 
+             textFiles.append(f) 
+             text_count += 1     
+         if os.path.isfile(os.path.join(root, f)):
+            count += 1
+print('Total files in Parent:%s' %count)
+print('Total pdf files in Parent:%s' %pdf_count)
+print('Name of PDF files:%s' %pdfFiles)
+print('Total word files in Parent:%s' %word_count)
+print('Name of word files:%s' %wordFiles)
+print('Total word files in Parent:%s' %text_count)
+prin
+From AA Saket Kumar to Everyone:  03:14 PM
+import tabula
+import pandas as pd
+import docx
+import json
+from docx.api import Document
+import os
+from IPython.display import display
+
+
+def folder_open():
+    print()
+    print("Choose option from below\n",end=""'-'*40)
+    print("\nPress 1 to enter into child1 \nPress 2 to enter into child2 \nPress 3 to enter into child3 \nPress 4 to go to Parent Folder")
+    choice = input("\nEnter your choice = ")
+    if choice == "1":
+        folder_check('E:/ML-essentials/inueron/Assign/Parent/Child1/')
+    elif choice == "2":
+        folder_check("E:/ML-essentials/inueron/Assign/Parent/Child2/")
+    elif choice == "3":
+        folder_check("E:/ML-essentials/inueron/Assign/Parent/Child3/")
+    else:
+        folder_check("E:/ML-essentials/inueron/Assign/Parent")
+        
+        
+def folder_check(filepath):
+    file_path = os.listdir(filepath)    
+    if len(file_path) == 0:
+        print("Empty Folder! Please try with different folder")
+        folder_open()
+    elif filepath == "E:/ML-essentials/inueron/Assign/Parent":
+
+From rahul danu to Everyone:  03:14 PM
+import os
+import pandas as pd
+import numpy as np
+import textract
+df=pd.read_csv('/home/rahul/parent/child3/3.txt')
+df
+text = textract.process('/home/rahul/parent/child3/3.pdf',delimiter='\n')
+text
+text = textract.process('/home/rahul/parent/child3/3.doc',delimiter='\n')
+text
+text = textract.process("/home/rahul/parent/child3/3.docx")
+text
+From pawan kumar to Everyone:  03:14 PM
+tilted screen
+From Chatterjee, Shatarupa to Everyone:  03:14 PM
+def read_word(path):
+    import docx
+    doc = docx.Document(path)
+    paras = [p.text for p in doc.paragraphs if p.text]
+    return paras
+    
+def read_pdf(path):
+    from PyPDF2 import PdfFileReader
+    with open(file_path, 'rb') as f:
+        pdf = PdfFileReader(f)
+        number_of_pages = pdf.getNumPages()
+        paras = ""
+        for i in range(number_of_pages):
+            page = pdf.getPage(i)
+            paras = paras + page.extractText()
+            f.close()
+    pdf_list = []      
+    pdf_list.append(paras)
+    return pdf_list
+    
+def read_text(path):
+    f = open(path, "r")
+    paras = f.read()
+    text_list = []      
+    text_list.append(paras)
+    return text_list
+From rahul danu to Everyone:  03:14 PM
+import os
+import pandas as pd
+import numpy as np
+import textract
+df=pd.read_csv('/home/rahul/parent/child3/3.txt')
+df
+text = textract.process('/home/rahul/parent/child3/3.pdf',delimiter='\n')
+text
+text = textract.process('/home/rahul/parent/child3/3.doc',delimiter='\n')
+text
+text = textract.process("/home/rahul/parent/child3/3.docx")
+text
+import os
+import pandas as pd
+import numpy as np
+import textract
+df=pd.read_csv('/home/rahul/parent/child3/3.txt')
+df
+text = textract.process('/home/rahul/parent/child3/3.pdf',delimiter='\n')
+text
+text = textract.process('/home/rahul/parent/child3/3.doc',delimiter='\n')
+text
+text = textract.process("/home/rahul/parent/child3/3.docx")
+text
+From Bimlesh Kanth to Everyone:  03:15 PM
+have completed till reading the sub folders:
+import os
+from os import walk
+f = []
+for (dirpath, dirnames, filenames) in walk('e:\\PYTHON_IPYNB_IMS\\BA_MAY_2019_PROJECT\\iNeuron\\MLD6th\\6_DataAnalysis\\Class-Homework'):
+    f.extend(filenames)
+    f.extend(dirnames)
+    break
+for i in range(len(f)):
+    print('e:\\PYTHON_IPYNB_IMS\\BA_MAY_2019_PROJECT\\iNeuron\\MLD6th\\6_DataAnalysis\\Class-Homework\\Folder_1'+'\\'+f[i])
+From Me to Everyone:  03:15 PM
+import os
+import PyPDF2
+import docx
+
+
+res = os.listdir('Parent/')
+for i in res:
+    for j in os.listdir('Parent/'+i):
+        _, file_extension = os.path.splitext('Parent/'+i+"/"+j)
+
+        if(file_extension == '.pdf'):
+            print("\n----PDF File-->", 'Parent/'+i+"/"+j, "------")
+
+            file_obj = open('Parent/'+i+"/"+j, 'rb')
+            pdfReader = PyPDF2.PdfFileReader(file_obj)
+            pageObj = pdfReader.getPage(0)
+            print(pageObj.extractText())
+            file_obj.close()
+
+            print("-----------------\n")
+        elif (file_extension == '.txt'):
+
+            print("\n*****Text File--->", 'Parent/'+i+"/"+j, "****")
+
+            file_obj = open('Parent/'+i+"/"+j, 'r')
+            print(file_obj.read())
+            file_obj.close()
+
+            print("*****************\n")
+        elif file_extension == '.docx':
+            print("####### Word File--->", 'Parent/'+i+"/"+j, "####")
+
+            doc = docx.Document('Parent/'+i+"/"+j)
+            content = doc.paragraphs
+  
+From Rohan to Everyone:  03:15 PM
+import os.path
+import pandas as pd
+import numpy as np
+import tabula as tb
+
+def file_check():
+    path1 = os.path.exists('/home/rohanoxob/JupyterPractice/Parent/Child1/PlanetTable.txt')
+    path2 = os.path.exists('/home/rohanoxob/JupyterPractice/Parent/Child2/2018_Bookmatter_PlanetaryGeology.pdf')
+    if path1 == True:
+        df1 = pd.read_csv('/home/rohanoxob/JupyterPractice/Parent/Child1/PlanetTable.txt',sep = '\t')
+        return df1
+    if path2 == True:
+        data = tb.read_pdf('/home/rohanoxob/JupyterPractice/Parent/Child2/2018_Bookmatter_PlanetaryGeology.pdf',pages = 10)
+        df2 = data[0]
+        return df2
+    if path1 == False or path2 == False:
+        print("Sorry file not found")
